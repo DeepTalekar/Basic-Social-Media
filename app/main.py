@@ -14,9 +14,7 @@ from .routers import post, user, auth, vote
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:8080",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
