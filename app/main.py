@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
+from fastapi.openapi.docs import get_swagger_ui_html
 
 from .database import engine
 from . import models
@@ -12,12 +13,6 @@ from .routers import post, user, auth, vote
 # * Since we have Alembic now we don't need it now
 # models.Base.metadata.create_all(bind=engine)
 
-
-# tags_metadata = [
-#     {
-#         "name": "Authentication",
-#         "description":}
-# ]
 
 description = """
 FastAPI backend providing basic social media features
@@ -59,7 +54,7 @@ Wherever there is the lock 🔓 icon you have to be an authorized user (you must
 
 """
 
-app = FastAPI()
+app = FastAPI(docs_url=None)
 
 # * Cache the OpenAPI schema
 # You can use the property .openapi_schema as a "cache", to store your generated schema.
@@ -105,3 +100,11 @@ app.include_router(vote.router)
 @app.get("/", tags=["Root"])
 def root():
     return {"message": "Hello World"}
+
+
+@app.get("/docs", include_in_schema=False)
+def swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url="/openapi.json",
+        title="Basic Social Media - Swagger UI",
+    )
