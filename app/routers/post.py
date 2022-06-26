@@ -33,8 +33,6 @@ def get_posts(limit: int = 10, skip: int = 0, search: Optional[str] = "", db: Se
         models.Vote, models.Post.id == models.Vote.post_id, isouter=True).group_by(models.Post.id).filter(
         models.Post.title.contains(search)).limit(limit).offset(skip).all()
 
-    print(results[0]._asdict())
-
     return results
 
 

@@ -2,5 +2,6 @@ __pycache__
 app/__pycache__
 routers/__pycache__
 alembic/__pycache__
+tests/__pycache__
 venv/
 .env
