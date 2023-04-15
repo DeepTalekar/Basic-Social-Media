@@ -106,7 +106,7 @@ jobs:
     # needs: [deploy]
     steps:
       - name: Shutting down the production
-        if: github.event.schedule != '34 11 * * *'
+        if: github.event.schedule != '37 11 * * *'
         run: railway down --yes
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
