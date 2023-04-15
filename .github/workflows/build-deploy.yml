@@ -6,8 +6,8 @@ on:
   # pull_request:
   #   branches: ['main']
   schedule:
-    - cron: '15 11 * * *'
-    - cron: '15 11 * * *'
+    - cron: '20 11 * * *'
+    - cron: '20 11 * * *'
 
 jobs:
   build:
@@ -38,10 +38,10 @@ jobs:
           --health-retries 5
 
     runs-on: ubuntu-latest
-    if: github.event.schedule != '15 11 * * *'
-    run:
-      
-      steps:
+
+    steps:
+      if: github.event.schedule != '20 11 * * *'
+      run:
         - name: Pulling Git Repo
           uses: actions/checkout@v3
         - name: Install Python 3.9
@@ -81,20 +81,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
 
-    if: github.event.schedule != '15 11 * * *'
-    run:
-      steps:
-        - name: Pulling Git Repo
+    steps:
+      - name: Pulling Git Repo
+        if: github.event.schedule != '20 11 * * *'
+        run:
           uses: actions/checkout@v3
-        # - name: Deploying to Heroku
-        #   uses: akhileshns/heroku-deploy@v3.12.12
-        #   with:
-        #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        #     heroku_email: ${{secrets.HEROKU_EMAIL}}
-        - name: Deploying to Railway
-          run: railway up -s ${secrets.RAILWAY_SERVICE}
-          
+      # - name: Deploying to Heroku
+      #   uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+      #     heroku_email: ${{secrets.HEROKU_EMAIL}}
+      - name: Deploying to Railway
+        run: railway up -s ${secrets.RAILWAY_SERVICE}
+        env:
+          RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
+        
 
   shutdown:
     environment:
@@ -103,7 +105,7 @@ jobs:
     # needs: [deploy]
     steps:
       - name: Shutting down the production
-        if: github.event.schedule != '20 11 * * *'
+        if: github.event.schedule != '25 11 * * *'
         run: railway down --yes
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
