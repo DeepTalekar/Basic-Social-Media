@@ -6,8 +6,8 @@ on:
   # pull_request:
   #   branches: ['main']
   schedule:
-    - cron: '23 11 * * *'
-    - cron: '23 11 * * *'
+    - cron: '32 11 * * *'
+    - cron: '32 11 * * *'
 
 jobs:
   build:
@@ -47,15 +47,16 @@ jobs:
         with:
           python-version: '3.9'
           architecture: 'x64'
-      - name: Update pip
-        if: github.event.schedule != '23 11 * * *'
-        run: python -m pip install --upgrade pip
-      - name: Installing all dependencies
-        if: github.event.schedule != '23 11 * * *'
-        run: pip install -r requirements.txt
-      - name: Test with pytest
-        if: github.event.schedule != '23 11 * * *'
-        run: pytest
+        if: github.event.schedule != '32 11 * * *'
+        run: 
+        - name: Update pip
+          run: python -m pip install --upgrade pip
+        - name: Installing all dependencies
+          # if: github.event.schedule != '32 11 * * *'
+          run: pip install -r requirements.txt
+        - name: Test with pytest
+          # if: github.event.schedule != '32 11 * * *'
+          run: pytest
 
       # Docker Image
       # - name: Login to Docker Hub
@@ -92,7 +93,7 @@ jobs:
       #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
       #     heroku_email: ${{secrets.HEROKU_EMAIL}}
       - name: Deploying to Railway
-        if: github.event.schedule != '23 11 * * *'
+        if: github.event.schedule != '32 11 * * *'
         run: railway up -s ${secrets.RAILWAY_SERVICE}
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
@@ -105,7 +106,7 @@ jobs:
     # needs: [deploy]
     steps:
       - name: Shutting down the production
-        if: github.event.schedule != '26 11 * * *'
+        if: github.event.schedule != '34 11 * * *'
         run: railway down --yes
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
