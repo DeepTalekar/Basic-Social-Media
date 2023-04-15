@@ -6,6 +6,6 @@ tests/__pycache__
 venv/
 .env
 .env.dev
+.env.prod
 Dockerfile
-
-
+.pytest_cache

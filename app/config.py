@@ -12,7 +12,20 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     class Config:
-        env_file = ".env.dev"
+        env_file = ".env.prod"
 
+class DevSettings(BaseSettings):
+    DATABASE_HOSTNAME: str
+    DATABASE_PORT: str
+    DATABASE_PASSWORD: str
+    DATABASE_NAME: str
+    DATABASE_USERNAME: str
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
+    class Config:
+            env_file = ".env.dev"
 
 settings = Settings()
+devSettings = DevSettings()

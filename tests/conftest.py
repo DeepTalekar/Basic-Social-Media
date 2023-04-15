@@ -10,11 +10,11 @@ from sqlalchemy.orm import sessionmaker
 
 from app.main import app
 from app import schemas, models
-from app.config import settings
+from app.config import devSettings
 from app.database import get_db, Base
 from app.oauth2 import create_access_token
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.DATABASE_HOSTNAME}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}_test"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{devSettings.DATABASE_USERNAME}:{devSettings.DATABASE_PASSWORD}@{devSettings.DATABASE_HOSTNAME}:{devSettings.DATABASE_PORT}/{devSettings.DATABASE_NAME}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -46,6 +46,8 @@ def session():
         yield db
     finally:
         db.close()
+        Base.metadata.drop_all(bind=engine)  # Dropping all the tables
+    
 
 
 @pytest.fixture()
