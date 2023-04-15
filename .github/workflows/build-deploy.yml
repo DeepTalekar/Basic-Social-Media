@@ -92,12 +92,12 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
       - name: Link to the railway service
-        run: railway link ${secrets.RAILWAY_PROJECT_ID}
+        run: railway link ${{secrets.RAILWAY_PROJECT_ID}}
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
       - name: Deploying to Railway
         if: github.event.schedule != '30 17 * * *'
-        run: railway up -s ${secrets.RAILWAY_SERVICE}
+        run: railway up -s ${{secrets.RAILWAY_SERVICE}}
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
         
