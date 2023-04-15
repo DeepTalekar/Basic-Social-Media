@@ -5,3 +5,5 @@ alembic/__pycache__
 tests/__pycache__
 venv/
 .env
+.env.dev
+Dockerfile
