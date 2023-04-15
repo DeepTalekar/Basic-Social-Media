@@ -6,8 +6,8 @@ on:
   # pull_request:
   #   branches: ['main']
   schedule:
-    - cron: '40 17 * * *'
     - cron: '58 17 * * *'
+    - cron: '58 18 * * *'
 
 jobs:
   build:
@@ -48,13 +48,13 @@ jobs:
           python-version: '3.9'
           architecture: 'x64'
       - name: Update pip
-        if: github.event.schedule != '40 17 * * *'
+        if: github.event.schedule != '58 17 * * *'
         run: python -m pip install --upgrade pip
       - name: Installing all dependencies
-        if: github.event.schedule != '40 17 * * *'
+        if: github.event.schedule != '58 17 * * *'
         run: pip install -r requirements.txt
       - name: Test with pytest
-        if: github.event.schedule != '40 17 * * *'
+        if: github.event.schedule != '58 17 * * *'
         run: pytest
 
       # Docker Image
@@ -92,7 +92,7 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
       - name: Deploying to Railway
-        if: github.event.schedule != '40 17 * * *'
+        if: github.event.schedule != '58 17 * * *'
         run: railway up -s ${{secrets.RAILWAY_SERVICE}}
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
@@ -111,7 +111,7 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
       - name: Shutting down the production
-        if: github.event.schedule != '58 17 * * *'
+        if: github.event.schedule != '58 18 * * *'
         run: railway down --yes
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
