@@ -91,8 +91,6 @@ jobs:
           node-version: 16 # Railway requires Node version 16 or higher
       - name: Install Railway
         run: npm i -g @railway/cli
-      - name: Link to the railway service
-        run: railway link ${{vars.RAILWAY_PROJECT_ID}}
       - name: Deploying to Railway
         if: github.event.schedule != '40 17 * * *'
         run: railway up -s ${{secrets.RAILWAY_SERVICE}}
@@ -112,8 +110,6 @@ jobs:
           node-version: 16 # Railway requires Node version 16 or higher
       - name: Install Railway
         run: npm i -g @railway/cli
-      - name: Link to the railway service
-        run: railway link ${{vars.RAILWAY_PROJECT_ID}}
       - name: Shutting down the production
         if: github.event.schedule != '58 17 * * *'
         run: railway down --yes
