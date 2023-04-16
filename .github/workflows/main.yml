@@ -2,7 +2,7 @@ name: Shutdown
 
 on:
   schedule:
-    - cron: '02 17 * * *'
+    - cron: '10 18 * * *'
 
 jobs:
   shutdown:
@@ -16,17 +16,8 @@ jobs:
           node-version: 16    # Railway requires NodeJS version 16 or higher
       - name: Install Railway
         run: npm i -g @railway/cli
-      - name: Run Railway Link
-        env:
-          RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
-          RAILWAY_PROJECT_ID: ${{secrets.RAILWAY_PROJECT_ID}}
-        run: railway link ${{secrets.RAILWAY_PROJECT_ID}}
-      - name: Link to the service
-        run: railway service ${{secrets.RAILWAY_SERVICE}}
-        env:
-          RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
       - name: Shutting down production
-        if: github.event.schedule >= '02 17 * * *'
-        run: railway down --yes
+        if: github.event.schedule >= '10 18 * * *'
+        run: railway down --yes --json
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
