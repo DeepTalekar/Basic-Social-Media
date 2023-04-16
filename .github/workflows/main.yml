@@ -2,7 +2,7 @@ name: Shutdown
 
 on:
   schedule:
-    - cron: '30 10 * * *'
+    - cron: '20 11 * * *'
 
 jobs:
   shutdown:
