@@ -2,13 +2,17 @@ name: Shutdown
 
 on:
   schedule:
-    - cron: '35 19 * * *'
+    - cron: '05 20 * * *'
+  workflow_run:
+    workflows: [Build and Deploy Code]
+    type: [completed]
 
 jobs:
   shutdown:
     environment:
       name: 'Production'
     runs-on: ubuntu-latest
+    if: ${{github.event.workflow_run.conclusion == 'success'}}
     steps:
       - name: Get NodeJS
         uses: actions/setup-node@v3
@@ -17,7 +21,7 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
       - name: Shutting down production
-        if: github.event.schedule >= '35 19 * * *'
+        if: github.event.schedule >= '05 20 * * *'
         run: railway down --yes --json
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
