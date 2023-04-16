@@ -2,7 +2,7 @@ name: Shutdown
 
 on:
   schedule:
-    - cron: '20 11 * * *'
+    - cron: '55 11 * * *'
 
 jobs:
   shutdown:
@@ -17,7 +17,7 @@ jobs:
       - name: Install Railway
         run: npm i -g @railway/cli
       - name: Shutting down production
-        if: github.event.schedule >= '43 10 * * *'
+        if: github.event.schedule >= '55 11 * * *'
         run: railway down --yes
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
