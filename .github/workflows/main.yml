@@ -2,17 +2,13 @@ name: Shutdown
 
 on:
   schedule:
-    - cron: '45 20 * * *'
-  workflow_run:
-    workflows: [Build and Deploy Code]
-    type: [completed]
+    - cron: '26 8 * * *'
 
 jobs:
   shutdown:
     environment:
       name: 'Production'
     runs-on: ubuntu-latest
-    if: ${{github.event.workflow_run.conclusion == 'success'}}
     steps:
       - name: Get NodeJS
         uses: actions/setup-node@v3
@@ -20,8 +16,16 @@ jobs:
           node-version: 16    # Railway requires NodeJS version 16 or higher
       - name: Install Railway
         run: npm i -g @railway/cli
+      - name: Redeploy
+        # if: github.event.schedule >= '25 8 * * *'
+        run: railway up -s ${{secrets.RAILWAY_SERVICE}} --detach
+        env:
+          RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
+      - name: Sleep & wait for Railway to merge the latest 2 running deployments
+        run: sleep 2m
+        shell: bash
       - name: Shutting down production
-        if: github.event.schedule >= '45 20 * * *'
+        # if: github.event.schedule >= '25 8 * * *'
         run: railway down --yes --json
         env:
           RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
