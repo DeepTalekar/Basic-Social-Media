@@ -27,6 +27,10 @@ jobs:
           node-version: 16    # Railway requires NodeJS version 16 or higher
       - name: Install Railway
         run: npm i -g @railway/cli
+      - name: Railway Link
+        run: railway link ${{secrets.RAILWAY_PROJECT_ID}}
+        env:
+          RAILWAY_TOKEN: ${{secrets.RAILWAY_TOKEN}}
       - name: Redeploy
         run: railway up -s ${{secrets.RAILWAY_SERVICE}} --detach
         env:
