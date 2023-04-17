@@ -4,10 +4,10 @@
 ![GitHub Production Deployment Status](https://img.shields.io/github/deployments/DeepTalekar/Basic-Social-Media/Production?style=flat-square 'App Deployment Status')
 [![dependency - fastapi](https://img.shields.io/badge/dependency-fastapi-blue?logo=fastapi&logoColor=white&style=flat-square)](https://pypi.org/project/fastapi)
 [![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=flat-square)](https://basic-social-media.up.railway.app/docs 'Go to project documentation')
-<img title="Swagger UI Validtion Status" alt="Swagger UI Validation Status" src="https://validator.swagger.io/validator?url=https://basic-social-media.up.railway.app/docs/openapi.json" />
+<img title="Swagger UI Validtion Status" alt="Swagger UI Validation Status" src="https://validator.swagger.io/validator?url=https://basic-social-media.up.railway.app/openapi.json" />
 
 [![Repo Hits](https://hits.sh/github.com/DeepTalekar/Basic-Social-Media.svg?view=today-total&style=flat-square&label=repo%20hits)](https://hits.sh/github.com/DeepTalekar/Basic-Social-Media/)
-[![Website Hits](https://hits.sh/basic-social-media.herokuapp.com.svg?view=today-total&style=flat-square&label=website)](https://hits.sh/basic-social-media.herokuapp.com/)
+[![Website Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbasic-social-media.up.railway.app%2Fdocs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=website&edge_flat=true)](https://hits.seeyoufarm.com)
 ![GitHub repo size](https://img.shields.io/github/repo-size/DeepTalekar/Basic-Social-Media?style=flat-square)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/FastAPI?style=flat-square)
 
